@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Aposta Máxima</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aposta Máxima</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Aposta Máxima</h1>
-        <nav>
-            <button onclick="filtrarDia('2025-08-06')">Hoje</button>
-        </nav>
-    </header>
+  <header>
+    <h1>Aposta Máxima</h1>
+    <nav>
+      <div id="dias-da-semana"></div>
+    </nav>
+  </header>
 
-    <main>
-        <section id="jogos-container"></section>
+  <main>
+    <section id="ligas"></section>
+    <section id="jogos-container"></section>
 
-        <aside id="boletim">
-            <h2>Boletim de Apostas</h2>
-            <ul id="selecoes"></ul>
-            <label>Valor da Aposta: R$ <input type="number" id="valorAposta" oninput="atualizarRetorno()"></label>
-            <p>Retorno Potencial: R$ <span id="retornoPotencial">0.00</span></p>
-            <button onclick="finalizarAposta()">Finalizar Aposta</button>
-        </aside>
-    </main>
+    <aside id="boletim">
+      <h2>Boletim de Apostas</h2>
+      <ul id="selecao-apostas"></ul>
+      <label>
+        Valor da Aposta (R$):
+        <input type="number" id="valorAposta" oninput="atualizarRetorno()">
+      </label>
+      <p>Retorno Potencial: R$ <span id="retornoPotencial">0.00</span></p>
+      <button onclick="finalizarAposta()">Finalizar Aposta</button>
+    </aside>
+  </main>
 
-    <footer>
-        <p>&copy; 2025 Aposta Máxima</p>
-    </footer>
+  <footer>
+    <p>&copy; 2025 Aposta Máxima</p>
+  </footer>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
