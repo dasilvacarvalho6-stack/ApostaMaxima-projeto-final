@@ -1,79 +1,27 @@
-let selecoes = [];
-
-function carregarJogos() {
-    fetch('/api/jogos')
-        .then(res => res.json())
-        .then(data => mostrarJogos(data.dias[0].ligas));
+async function carregarJogos() {
+  const res = await fetch("api_jogos.json");
+  const jogos = await res.json();
+  exibirJogos(jogos);
 }
 
-function mostrarJogos(ligas) {
-    const container = document.getElementById('jogos-container');
-    container.innerHTML = '';
-    ligas.forEach(liga => {
-        const divLiga = document.createElement('div');
-        divLiga.innerHTML = `<h3>${liga.nome}</h3>`;
-        liga.jogos.forEach(jogo => {
-            const divJogo = document.createElement('div');
-            divJogo.innerHTML = `<strong>${jogo.time_casa} vs ${jogo.time_fora}</strong> (${jogo.hora})<br>`;
-            for (let mercado in jogo.mercados) {
-                const opcoes = jogo.mercados[mercado];
-                divJogo.innerHTML += `<em>${mercado}:</em> `;
-                for (let chave in opcoes) {
-                    const odd = document.createElement('span');
-                    odd.className = 'odd';
-                    odd.textContent = `${chave} (${opcoes[chave]})`;
-                    odd.onclick = () => adicionarAoBoletim(jogo, mercado, chave, opcoes[chave]);
-                    divJogo.appendChild(odd);
-                }
-                divJogo.innerHTML += '<br>';
-            }
-            divLiga.appendChild(divJogo);
-        });
-        container.appendChild(divLiga);
-    });
+function exibirJogos(jogos) {
+  const container = document.getElementById("lista-jogos");
+  container.innerHTML = "";
+  jogos.forEach(jogo => {
+    const card = document.createElement("div");
+    card.className = "jogo-card";
+    card.innerHTML = `
+      <div>${jogo.timeCasa} vs ${jogo.timeFora}</div>
+      <div>
+        <button onclick="selecionarOdd(${jogo.odds.casa})">${jogo.odds.casa}</button>
+        <button onclick="selecionarOdd(${jogo.odds.empate})">${jogo.odds.empate}</button>
+        <button onclick="selecionarOdd(${jogo.odds.fora})">${jogo.odds.fora}</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
 }
 
-function adicionarAoBoletim(jogo, mercado, selecao, odd) {
-    selecoes.push({ jogo, mercado, selecao, odd });
-    atualizarBoletim();
+function selecionarOdd(odd) {
+  // adicionar odd no boletim e atualizar o retorno
 }
-
-function atualizarBoletim() {
-    const lista = document.getElementById('selecoes');
-    lista.innerHTML = '';
-    selecoes.forEach((s, i) => {
-        const li = document.createElement('li');
-        li.textContent = `${s.jogo.time_casa} x ${s.jogo.time_fora} - ${s.mercado} - ${s.selecao} @ ${s.odd}`;
-        lista.appendChild(li);
-    });
-    atualizarRetorno();
-}
-
-function atualizarRetorno() {
-    const valor = parseFloat(document.getElementById('valorAposta').value || 0);
-    const multiplicador = selecoes.reduce((acc, s) => acc * s.odd, 1);
-    document.getElementById('retornoPotencial').textContent = (valor * multiplicador).toFixed(2);
-}
-
-function finalizarAposta() {
-    const valor = parseFloat(document.getElementById('valorAposta').value || 0);
-    const payload = {
-        valor,
-        retorno: parseFloat((valor * selecoes.reduce((acc, s) => acc * s.odd, 1)).toFixed(2)),
-        selecoes,
-        metodo: 'pix_ou_codigo',
-        horario: new Date().toISOString()
-    };
-    fetch('/api/apostar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    }).then(res => res.json()).then(res => {
-        alert(res.status || "Aposta enviada!");
-        selecoes = [];
-        atualizarBoletim();
-        document.getElementById('valorAposta').value = '';
-    });
-}
-
-carregarJogos();
