@@ -1,0 +1,31 @@
+{
+  "dias": [
+    {
+      "data": "2025-08-06",
+      "ligas": [
+        {
+          "nome": "Copa do Brasil",
+          "jogos": [
+            {
+              "time_casa": "Atlético Mineiro",
+              "time_fora": "Flamengo",
+              "hora": "19:00",
+              "mercados": {
+                "1x2": {
+                  "C": 3.56,
+                  "E": 2.49,
+                  "F": 1.99
+                },
+                "Dupla Chance": {
+                  "C/E": 1.65,
+                  "C/F": 1.25,
+                  "E/F": 1.4
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

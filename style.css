@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #900;
+    padding: 10px;
+    text-align: center;
+}
+nav button {
+    margin: 5px;
+    padding: 10px;
+    background-color: #222;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+main {
+    display: flex;
+    padding: 20px;
+}
+#jogos-container {
+    flex: 3;
+}
+aside#boletim {
+    flex: 1;
+    margin-left: 20px;
+    background-color: #222;
+    padding: 10px;
+    border-radius: 5px;
+}
+aside#boletim input {
+    width: 100px;
+}
+.odd {
+    display: inline-block;
+    margin: 3px;
+    padding: 5px;
+    background-color: #900;
+    cursor: pointer;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Aposta Máxima</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Aposta Máxima</h1>
+        <nav>
+            <button onclick="filtrarDia('2025-08-06')">Hoje</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="jogos-container"></section>
+
+        <aside id="boletim">
+            <h2>Boletim de Apostas</h2>
+            <ul id="selecoes"></ul>
+            <label>Valor da Aposta: R$ <input type="number" id="valorAposta" oninput="atualizarRetorno()"></label>
+            <p>Retorno Potencial: R$ <span id="retornoPotencial">0.00</span></p>
+            <button onclick="finalizarAposta()">Finalizar Aposta</button>
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Aposta Máxima</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
